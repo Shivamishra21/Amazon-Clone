@@ -3,11 +3,23 @@ export const initialState = {
   user: null,
 };
 export const getBasketTotal = (basket) => {
-  basket?.reduce((amount, item) => item.price + amount, 0);
+  console.log("in getBasketTotal")
+  if(basket.length!=0){
+     let sum = 0;
+    basket.map((item) => {
+      sum += item.price;
+      return sum;
+    });
+    return sum
+  }
+  else {
+    console.log('else')
+    return 0
+  }
 };
 
 const reducer = (state, action) => {
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
     case "ADD_TO_BASKET":
       return { ...state, basket: [...state.basket, action.item] };
@@ -29,6 +41,7 @@ const reducer = (state, action) => {
       };
 
     case "SET_USER":
+      console.log(action.user)
       return {
         ...state,
         user: action.user,
