@@ -7,9 +7,9 @@ import Login from "./Login";
 import { useEffect } from "react";
 import Checkout from "./Checkout";
 import { useStateValue } from "./StateProvider";
-
+import Rough from "./Rough";
 function App() {
-  const [{basket},dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
   useEffect(() => {
     // will only run once when the app component loads...
 
@@ -18,14 +18,14 @@ function App() {
 
       if (authUser) {
         // the user just logged in / the user was logged in
-        // console.log("gi");
+
         dispatch({
           type: "SET_USER",
           user: authUser,
         });
       } else {
         // the user is logged out
-        console.log("df");
+
         dispatch({
           type: "SET_USER",
           user: null,
@@ -37,7 +37,7 @@ function App() {
     <div className="app">
       <Router>
         <Switch>
-          <Route exact path="/" >
+          <Route exact path="/">
             <Header />
             <Home />
           </Route>
@@ -47,6 +47,9 @@ function App() {
           <Route path="/checkout">
             <Header />
             <Checkout />
+          </Route>
+          <Route path="/x">
+            <Rough />
           </Route>
         </Switch>
       </Router>

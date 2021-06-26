@@ -1,12 +1,26 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./Checkout.css";
 import Subtotal from "./Subtotal";
 import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
-
-
+import { useSpring } from "@react-spring/core";
+import { animated } from "@react-spring/web";
 function Checkout() {
   const [{ basket, user }, dispatch] = useStateValue();
+  const fade = useSpring({
+    from: {
+      marginLeft:"-500rem",
+      
+    },
+    to: {
+      marginLeft:"0rem"
+      
+    },
+    config:{
+      duration:1000,
+      delay:1000
+    }
+  });
   return (
     <div className="checkout">
       <div className="checkout__left">
@@ -17,20 +31,21 @@ function Checkout() {
         />
         <div>
           <h3>Hello,{user?.email} </h3>
-          {/* <h2 className="checkout__title">Your Shopping Basket</h2>{console.log(basket)} */}
-          <div>
-            {basket.map((item, i) => {
-              return (
-                <div key = {i}>
-                  <CheckoutProduct id={item.id}
+          <h2 className="checkout__title">Your Shopping Basket</h2>
+
+          {basket.map((item, i) => {
+            return (
+              <animated.div style={fade}>
+                <CheckoutProduct
+                  id={item.id}
                   title={item.title}
                   image={item.image}
                   price={item.price}
-                  rating ={item.rating}/>
-                </div>
-              );
-            })}
-          </div>
+                  rating={item.rating}
+                />
+              </animated.div>
+            );
+          })}
         </div>
       </div>
 

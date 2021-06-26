@@ -4,11 +4,13 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 15000px;
+    overflow: hidden;
 }
 .home__image{
     width: 100%;
     z-index: -1;
     margin-bottom: -150px;
+    transition: ease 1000ms;
     mask-image: linear-gradient(to bottom,rgba(0,0,0,1),rgba(0,0,0,0));
 }
 
@@ -17,4 +19,32 @@
     z-index: 1; 
     margin-left: 5px;  
     margin-right: 5px;
+  }
+
+  
+.home__slideshow {
+    margin: 0;
+      position: relative;
+      width: 620px;
+    height: 250px;
+  }
+  
+  .home__slideshow > div {
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+  }
+  
+  .home__slideshow img {
+      width: 100%;
+    margin: 0;
+    border: solid 1px #283593;
+  }
+
+  .slideshowslider{
+    white-space: nowrap;
+  transition: ease 1000ms;
+  width: 100%;
   }

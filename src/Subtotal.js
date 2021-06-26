@@ -4,7 +4,7 @@ import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "./StateProvider";
 import { getBasketTotal } from "./Reducer";
 import { useHistory } from "react-router-dom";
-
+import { useSpring, animated } from "react-spring";
 function Subtotal(value) {
   const history = useHistory();
   const [{ basket }, dispatch] = useStateValue();
@@ -18,6 +18,16 @@ function Subtotal(value) {
     setV(getBasketTotal(basket));
   });
 
+  const styles = useSpring({
+    loop: true,
+    to: { opacity: 1, color: "#ffaaee" },
+
+    from: { opacity: 0, color: "red" },
+    config:{
+      delay:5000,
+      duration:1000
+    }
+  });
   return (
     <div className="subtotal">
       <CurrencyFormat
@@ -32,13 +42,15 @@ function Subtotal(value) {
           </>
         )}
         decimalScale={2}
-        value={v} 
+        value={v}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"$"}
       />
 
-      <button>Proceed to Checkout</button>
+      <animated.div style={styles}>
+        <button className="subtotal__pay__button">Proceed to Checkout</button>
+      </animated.div>
     </div>
   );
 }

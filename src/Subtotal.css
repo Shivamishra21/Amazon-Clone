@@ -18,7 +18,7 @@
     margin-right: 5px;
 }
 
-.subtotal>button{
+.subtotal__pay__button{
     background: #f0c14b;
     border-radius: 2px;
     width: 100%;
