@@ -9,24 +9,24 @@ function Subtotal(value) {
   const history = useHistory();
   const [{ basket }, dispatch] = useStateValue();
   const [v, setV] = useState(0);
-  useEffect(() => {
-    // let sum = 0;
-    // basket.map((item) => {
-    //   sum += item.price;
-    //   return sum;
-    // });
-    setV(getBasketTotal(basket));
-  });
+  // useEffect(() => {
+  //   // let sum = 0;
+  //   // basket.map((item) => {
+  //   //   sum += item.price;
+  //   //   return sum;
+  //   // });
+  //   setV(getBasketTotal(basket));
+  // });
 
   const styles = useSpring({
     loop: true,
     to: { opacity: 1, color: "#ffaaee" },
 
     from: { opacity: 0, color: "red" },
-    config:{
-      delay:5000,
-      duration:1000
-    }
+    config: {
+      delay: 5000,
+      duration: 1000,
+    },
   });
   return (
     <div className="subtotal">
@@ -42,14 +42,21 @@ function Subtotal(value) {
           </>
         )}
         decimalScale={2}
-        value={v}
+        value={getBasketTotal(basket)}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"$"}
       />
 
       <animated.div style={styles}>
-        <button className="subtotal__pay__button">Proceed to Checkout</button>
+        <button
+          className="subtotal__pay__button"
+          onClick={(e) => {
+            history.push("/payment");
+          }}
+        >
+          Proceed to Checkout
+        </button>
       </animated.div>
     </div>
   );
