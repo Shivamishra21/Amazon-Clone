@@ -126,13 +126,13 @@ function Home() {
           <Product
           id="7959548945"
           title="Amazon Brand - Solimo Newport Fabric 2 Seater Settee Sofa (Brown)"
-          price="8675.99"
+          price={8675.99}
           rating={3}
           image="https://images-na.ssl-images-amazon.com/images/I/51fmq7Rf42L.jpg"/>
           <Product
           id="79595489235"
           title="DeckUp Versa Engineered Wood Matte Finish Office Table and Study Desk ( Beige, Walnut )"
-          price="865.99"
+          price={865.99}
           rating={4}
           image="https://images-na.ssl-images-amazon.com/images/I/71ECtyY-qrL._SL1500_.jpg"/>
         </div>

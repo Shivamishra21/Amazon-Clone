@@ -7,6 +7,7 @@ import { useElements, CardElement, useStripe } from "@stripe/react-stripe-js";
 import  CurrencyFormat  from "react-currency-format";
 import { getBasketTotal } from "./Reducer";
 import axios from "./axios";
+import {db} from './firebase'
 
 
 function Payment() {
@@ -40,20 +41,31 @@ function Payment() {
       getClientSecret()
 
   },[basket])
+  console.log('The secret is ,',clientSecret)
 
   const handleSubmit = async (event) => {
     // do all fancy stripe functionalities
     event.preventDefault()
     setProcessing(true)
-
     const payload = await stripe.confirmCardPayment(clientSecret,{
       payment_method:{
         card:elements.getElement(CardElement)
       }
     }).then(({paymentIntent})=>{
+      
+      db.collection('users').doc(user?.uid).collection('orders').doc(paymentIntent.id).set({
+        basket:basket,
+        amount:paymentIntent.amount,
+        created:paymentIntent.created
+      }).catch((err)=>{
+        console.log("Error is : "+err)
+      })
       setSucceeded(true)
       setProcessing(false)
       setError(null)
+      dispatch({
+        type:"EMPTY_BASKET"
+      })
       history.replace('/orders')
     })
 
@@ -123,7 +135,7 @@ function Payment() {
                   value={getBasketTotal(basket)}
                   displayType={"text"}
                   thousandSeparator={true}
-                  prefix={"$"}
+                  prefix={"₹"}
                 />{" "}
                 <button disabled={processing||disabled||succeeded}><span>{processing?<p>Processing</p>:"Buy Now"}</span></button>
                 

@@ -7,7 +7,7 @@ import Login from "./Login";
 import { useEffect } from "react";
 import Checkout from "./Checkout";
 import { useStateValue } from "./StateProvider";
-import Rough from "./Rough";
+import Orders from "./Orders";
 import Payment from "./Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -60,6 +60,10 @@ function App() {
             <Elements stripe={promise}>
               <Payment />
             </Elements>
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
           </Route>
         </Switch>
       </Router>
